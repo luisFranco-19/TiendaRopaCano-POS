@@ -1,4 +1,4 @@
-# CanoFashion-POS 👗👔
+# TTiendaCano-POS 👗👔
 
 Sistema integral de escritorio para la gestión comercial y administración de inventario diseñado para tiendas de ropa.
 
