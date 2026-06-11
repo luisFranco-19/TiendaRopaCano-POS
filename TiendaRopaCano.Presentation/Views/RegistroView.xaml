@@ -1,0 +1,526 @@
+<Window x:Class="TiendaRopaCano.Presentation.Views.RegistroView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:helpers="clr-namespace:TiendaRopaCano.Presentation.Helpers"
+        mc:Ignorable="d"
+        Title="Tienda de Ropa Cano — Registrarse"
+        Height="580" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <!-- Estilo para TextBox moderno -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#F3F4F6"/>
+            <Setter Property="Foreground" Value="#111827"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="CaretBrush" Value="#0B2447"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#0B2447"/>
+                                <Setter Property="Background" Value="#FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#9CA3AF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo para PasswordBox moderno -->
+        <Style x:Key="ModernPasswordBox" TargetType="PasswordBox">
+            <Setter Property="Background" Value="#F3F4F6"/>
+            <Setter Property="Foreground" Value="#111827"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="CaretBrush" Value="#0B2447"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#0B2447"/>
+                                <Setter Property="Background" Value="#FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#9CA3AF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo para ComboBox moderno -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="#F3F4F6"/>
+            <Setter Property="Foreground" Value="#111827"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton" 
+                                          Grid.Column="2" 
+                                          Focusable="false"
+                                          IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="#F3F4F6" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1.5" CornerRadius="8">
+                                            <Path x:Name="Arrow" Fill="#4B5563" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="12,8,30,8" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                                <Grid x:Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="#FFFFFF" BorderThickness="1.5" BorderBrush="#E5E7EB" CornerRadius="8" >
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.15" Color="#000000"/>
+                                        </Border.Effect>
+                                    </Border>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Foreground" Value="#111827" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Padding" Value="12,8"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ComboBoxItem">
+                                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" CornerRadius="6" Margin="2,1">
+                                        <ContentPresenter />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsHighlighted" Value="True">
+                                            <Setter Property="Background" Value="#F3F4F6" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="#0B2447" />
+                                            <Setter Property="Foreground" Value="White" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- Contenedor principal flotante con sombra y esquinas redondeadas -->
+    <Border CornerRadius="16" Background="#FFFFFF">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="25" ShadowDepth="0" Opacity="0.3" Color="#000000"/>
+        </Border.Effect>
+
+        <Grid x:Name="MainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="340"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ================= COLUMNA IZQUIERDA: DISEÑO BRANDING ================= -->
+            <Border Grid.Column="0" CornerRadius="16,0,0,16" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#0B2447" Offset="0"/>
+                        <GradientStop Color="#1E3A8A" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <!-- Elementos decorativos de fondo abstractos -->
+                <Grid ClipToBounds="True">
+                    <!-- Círculo difuminado decorativo 1 -->
+                    <Ellipse Width="300" Height="300" Fill="#1D4ED8" Opacity="0.15" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-100,-100,0,0">
+                        <Ellipse.Effect>
+                            <BlurEffect Radius="40"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+
+                    <!-- Círculo difuminado decorativo 2 -->
+                    <Ellipse Width="250" Height="250" Fill="#1E40AF" Opacity="0.2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-80,-80">
+                        <Ellipse.Effect>
+                            <BlurEffect Radius="30"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+
+                    <!-- Contenido del Branding -->
+                    <StackPanel VerticalAlignment="Center" Margin="35,0">
+                        <!-- Logotipo -->
+                        <Border Width="70" Height="70" CornerRadius="35" Background="#FFFFFF" HorizontalAlignment="Center" Margin="0,0,0,24">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="15" ShadowDepth="2" Opacity="0.2" Color="#000000"/>
+                            </Border.Effect>
+                            <TextBlock Text="👕" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,2"/>
+                        </Border>
+
+                        <!-- Nombre de la marca -->
+                        <TextBlock Text="TIENDA CANO" Foreground="#FFFFFF" FontSize="26" FontWeight="Bold" FontFamily="Segoe UI" HorizontalAlignment="Center"/>
+
+                        <!-- Lema -->
+                        <TextBlock Text="REGISTRO DE USUARIOS" Foreground="#93C5FD" FontSize="11" FontWeight="SemiBold" FontFamily="Segoe UI" HorizontalAlignment="Center" Margin="0,4,0,24"/>
+
+                        <!-- Separador sutil -->
+                        <Border Width="60" Height="2" Background="#93C5FD" Opacity="0.5" HorizontalAlignment="Center" Margin="0,0,0,24"/>
+
+                        <!-- Texto descriptivo -->
+                        <TextBlock Text="Crea una cuenta en la plataforma de gestión de Tienda Cano para comenzar a administrar el stock, registrar transacciones y visualizar reportes analíticos." 
+                                   Foreground="#E0F2FE" FontSize="12.5" FontFamily="Segoe UI" LineHeight="20" TextAlignment="Center" TextWrapping="Wrap" Opacity="0.9"/>
+                    </StackPanel>
+
+                    <!-- Footer del branding -->
+                    <TextBlock Text="v1.2.0 • Premium Edition" Foreground="#93C5FD" FontSize="10" FontFamily="Segoe UI" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Opacity="0.7"/>
+                </Grid>
+            </Border>
+
+            <!-- ================= COLUMNA DERECHA: FORMULARIO DE REGISTRO ================= -->
+            <Grid Grid.Column="1">
+                <!-- Zona superior de control de la ventana (para arrastre y cierre) -->
+                <Grid VerticalAlignment="Top" Height="45" Background="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                    <Button Content="✕"
+                            HorizontalAlignment="Right"
+                            Click="CloseButton_Click"
+                            Background="Transparent"
+                            Foreground="#9CA3AF"
+                            BorderThickness="0"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Cursor="Hand"
+                            Width="40" Height="40"
+                            Margin="0,4,4,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="Bd" Background="Transparent" CornerRadius="20">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Bd" Property="Background" Value="#FEE2E2"/>
+                                                    <Setter Property="Foreground" Value="#EF4444"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+
+                <!-- Formulario con ScrollViewer -->
+                <ScrollViewer Margin="0,45,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel VerticalAlignment="Top" Margin="50,10,50,30">
+                        <!-- Títulos -->
+                        <TextBlock Text="Crear una cuenta" Foreground="#111827" FontSize="24" FontWeight="Bold" FontFamily="Segoe UI" Margin="0,0,0,4"/>
+                        <TextBlock Text="Ingresa tus datos personales y credenciales." Foreground="#6B7280" FontSize="13" FontFamily="Segoe UI" Margin="0,0,0,20"/>
+
+                        <!-- Grid para acomodar en dos columnas algunos campos si se desea, o simplemente StackPanel vertical -->
+                        <!-- Campo Nombre Completo -->
+                        <TextBlock Text="NOMBRE COMPLETO" Foreground="#4B5563" FontSize="11" FontWeight="Bold" FontFamily="Segoe UI" Margin="2,0,0,5"/>
+                        <TextBox Style="{StaticResource ModernTextBox}"
+                                 Text="{Binding NombreCompleto, UpdateSourceTrigger=PropertyChanged}"
+                                 Margin="0,0,0,12"/>
+
+                        <!-- Campo Nombre de Usuario -->
+                        <TextBlock Text="NOMBRE DE USUARIO" Foreground="#4B5563" FontSize="11" FontWeight="Bold" FontFamily="Segoe UI" Margin="2,0,0,5"/>
+                        <TextBox Style="{StaticResource ModernTextBox}"
+                                 Text="{Binding NombreUsuario, UpdateSourceTrigger=PropertyChanged}"
+                                 Margin="0,0,0,12"/>
+
+                        <!-- Fila de Contraseñas (Dos columnas para ahorrar espacio vertical) -->
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="CONTRASEÑA" Foreground="#4B5563" FontSize="11" FontWeight="Bold" FontFamily="Segoe UI" Margin="2,0,0,5"/>
+                                <Grid>
+                                    <PasswordBox helpers:PasswordHelper.Attach="True"
+                                                 helpers:PasswordHelper.Password="{Binding Contrasena, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Padding="12,8,36,8">
+                                        <PasswordBox.Style>
+                                            <Style TargetType="PasswordBox" BasedOn="{StaticResource ModernPasswordBox}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding MostrarContrasena}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding MostrarContrasena}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </PasswordBox.Style>
+                                    </PasswordBox>
+                                    
+                                    <TextBox Text="{Binding Contrasena, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Padding="12,8,36,8">
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox" BasedOn="{StaticResource ModernTextBox}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding MostrarContrasena}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding MostrarContrasena}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+
+                                    <ToggleButton IsChecked="{Binding MostrarContrasena, Mode=TwoWay}"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0,0,8,0"
+                                                  Cursor="Hand"
+                                                  Focusable="False"
+                                                  Background="Transparent"
+                                                  BorderThickness="0">
+                                        <ToggleButton.Template>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border Background="Transparent" Width="18" Height="18">
+                                                    <Path x:Name="EyeIcon"
+                                                          Data="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"
+                                                          Fill="#9CA3AF" Stretch="Uniform"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsChecked" Value="True">
+                                                        <Setter TargetName="EyeIcon" Property="Fill" Value="#0B2447"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsChecked" Value="False">
+                                                        <Setter TargetName="EyeIcon" Property="Fill" Value="#9CA3AF"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="EyeIcon" Property="Opacity" Value="0.8"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </ToggleButton.Template>
+                                    </ToggleButton>
+                                </Grid>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="CONFIRMAR" Foreground="#4B5563" FontSize="11" FontWeight="Bold" FontFamily="Segoe UI" Margin="2,0,0,5"/>
+                                <Grid>
+                                    <PasswordBox helpers:PasswordHelper.Attach="True"
+                                                 helpers:PasswordHelper.Password="{Binding ConfirmarContrasena, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Padding="12,8,36,8">
+                                        <PasswordBox.Style>
+                                            <Style TargetType="PasswordBox" BasedOn="{StaticResource ModernPasswordBox}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding MostrarContrasena}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding MostrarContrasena}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </PasswordBox.Style>
+                                    </PasswordBox>
+                                    
+                                    <TextBox Text="{Binding ConfirmarContrasena, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Padding="12,8,36,8">
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox" BasedOn="{StaticResource ModernTextBox}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding MostrarContrasena}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding MostrarContrasena}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+                                                                   <ToggleButton IsChecked="{Binding MostrarContrasena, Mode=TwoWay}"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0,0,8,0"
+                                                  Cursor="Hand"
+                                                  Focusable="False"
+                                                  Background="Transparent"
+                                                  BorderThickness="0">
+                                        <ToggleButton.Template>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border Background="Transparent" Width="18" Height="18">
+                                                    <Path x:Name="EyeIconConfirm"
+                                                          Data="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"
+                                                          Fill="#9CA3AF" Stretch="Uniform"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsChecked" Value="True">
+                                                        <Setter TargetName="EyeIconConfirm" Property="Fill" Value="#0B2447"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsChecked" Value="False">
+                                                        <Setter TargetName="EyeIconConfirm" Property="Fill" Value="#9CA3AF"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="EyeIconConfirm" Property="Opacity" Value="0.8"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </ToggleButton.Template>
+                                    </ToggleButton>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Campo Rol -->
+                        <TextBlock Text="ROL DEL USUARIO" Foreground="#4B5563" FontSize="11" FontWeight="Bold" FontFamily="Segoe UI" Margin="2,0,0,5"/>
+                        <ComboBox Style="{StaticResource ModernComboBox}"
+                                  ItemsSource="{Binding Roles}"
+                                  SelectedValuePath="Key"
+                                  DisplayMemberPath="Value"
+                                  SelectedValue="{Binding RolSeleccionado}"
+                                  Margin="0,0,0,12"/>
+
+                        <!-- Mensajes de Error / Éxito -->
+                        <TextBlock Text="{Binding MensajeError}"
+                                   Foreground="#EF4444"
+                                   FontSize="12"
+                                   FontWeight="Medium"
+                                   FontFamily="Segoe UI"
+                                   HorizontalAlignment="Left"
+                                   Margin="2,2,0,8"
+                                   TextWrapping="Wrap"
+                                   Visibility="{Binding MensajeError, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                        <TextBlock Text="{Binding MensajeExito}"
+                                   Foreground="#15803D"
+                                   FontSize="12"
+                                   FontWeight="Medium"
+                                   FontFamily="Segoe UI"
+                                   HorizontalAlignment="Left"
+                                   Margin="2,2,0,8"
+                                   TextWrapping="Wrap"
+                                   Visibility="{Binding MensajeExito, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                        <!-- Botón Registrarse -->
+                        <Button Content="Registrar Cuenta"
+                                Command="{Binding RegistrarCommand}"
+                                Height="44"
+                                FontSize="14"
+                                FontWeight="Bold"
+                                FontFamily="Segoe UI"
+                                Foreground="White"
+                                Cursor="Hand"
+                                BorderThickness="0"
+                                Margin="0,4,0,14">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="ButtonBorder" CornerRadius="8" Padding="0,10">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="#0B2447" Offset="0"/>
+                                                <GradientStop Color="#1E3A8A" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.9"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <!-- Indicador de Carga -->
+                        <ProgressBar IsIndeterminate="{Binding IsLoading}"
+                                     Height="3"
+                                     Background="Transparent"
+                                     Foreground="#0B2447"
+                                     BorderThickness="0"
+                                     Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
+                                     Margin="0,0,0,10"/>
+
+                        <!-- Link Volver a Iniciar Sesión (Oculto si es el primer registro de la app) -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,2,0,0"
+                                    Visibility="{Binding MostrarVolverLoginLink, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <TextBlock Text="¿Ya tienes una cuenta? " Foreground="#4B5563" FontSize="13" FontFamily="Segoe UI"/>
+                            <TextBlock Text="Inicia sesión aquí"
+                                       Foreground="#1E3A8A"
+                                       FontSize="13"
+                                       FontWeight="Bold"
+                                       FontFamily="Segoe UI"
+                                       Cursor="Hand"
+                                       MouseLeftButtonDown="VolverLogin_Click">
+                                <TextBlock.TextDecorations>
+                                    <TextDecoration Location="Underline"/>
+                                </TextBlock.TextDecorations>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

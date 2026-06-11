@@ -1,0 +1,148 @@
+@startuml TiendaRopaCano - Diagrama Conceptual Simplificado
+
+' ─────────────────────────────────────────────
+'  Estilo visual limpio (como la imagen de ejemplo)
+' ─────────────────────────────────────────────
+skinparam class {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+skinparam package {
+    BackgroundColor #FDFDFD
+    BorderColor #DDDDDD
+}
+skinparam linetype ortho
+left to right direction
+
+title Diagrama de Clases Conceptual (Arquitectura en Capas)
+
+' ══════════════════════════════════════════════════════════════════
+'  CAPA 4 · PRESENTACIÓN (INTERFAZ)
+' ══════════════════════════════════════════════════════════════════
+package "Presentación" as Presentacion {
+    class Login {
+        + usuario : String
+        + contrasena : String
+        + iniciarSesion() : Boolean
+    }
+    
+    class Registro {
+        + nombreCompleto : String
+        + nombreUsuario : String
+        + contrasena : String
+        + registrar() : Boolean
+    }
+    
+    class NuevaVenta {
+        + total : Decimal
+        + agregarProducto() : Void
+        + confirmarVenta() : Boolean
+    }
+}
+
+' ══════════════════════════════════════════════════════════════════
+'  CAPA 3 · APLICACIÓN (SERVICIOS)
+' ══════════════════════════════════════════════════════════════════
+package "Aplicación" as Aplicacion {
+    class ServicioUsuario {
+        + autenticar(usuario, clave) : Usuario
+        + registrarUsuario(usuario) : Boolean
+    }
+    
+    class ServicioVenta {
+        + registrarVenta(venta) : Boolean
+    }
+}
+
+' ══════════════════════════════════════════════════════════════════
+'  CAPA 2 · DOMINIO (ENTIDADES)
+' ══════════════════════════════════════════════════════════════════
+package "Dominio" as Dominio {
+    class Usuario {
+        + id : Integer
+        + nombreCompleto : String
+        + nombreUsuario : String
+        + contrasena : String
+        + rolId : Integer
+    }
+    
+    class Rol {
+        + id : Integer
+        + nombre : String
+    }
+    
+    class Producto {
+        + id : Integer
+        + nombre : String
+        + precio : Decimal
+        + stock : Integer
+    }
+    
+    class Categoria {
+        + id : Integer
+        + nombre : String
+    }
+    
+    class Venta {
+        + id : Integer
+        + fecha : Date
+        + total : Decimal
+    }
+    
+    class DetalleVenta {
+        + id : Integer
+        + cantidad : Integer
+        + precioUnitario : Decimal
+        + subtotal : Decimal
+    }
+}
+
+' ══════════════════════════════════════════════════════════════════
+'  CAPA 1 · INFRAESTRUCTURA (ACCESO A DATOS)
+' ══════════════════════════════════════════════════════════════════
+package "Infraestructura" as Infraestructura {
+    class BaseDatos {
+        + obtenerConexion() : Conexion
+        + inicializarTablas() : Void
+    }
+    
+    class RepositorioUsuario {
+        + buscarPorCredenciales(usuario, clave) : Usuario
+        + insertar(usuario) : Boolean
+    }
+    
+    class RepositorioVenta {
+        + insertar(venta) : Boolean
+    }
+}
+
+' ─────────────────────────────────────────────
+'  Relaciones entre Capas (Flujo de Dependencia)
+' ─────────────────────────────────────────────
+Login ..> ServicioUsuario : usa
+Registro ..> ServicioUsuario : usa
+NuevaVenta ..> ServicioVenta : usa
+
+ServicioUsuario --> RepositorioUsuario : usa
+ServicioVenta --> RepositorioVenta : usa
+
+RepositorioUsuario --> BaseDatos : consulta
+RepositorioVenta --> BaseDatos : consulta
+
+' ─────────────────────────────────────────────
+'  Relaciones de Negocio (Multiplicidades)
+' ─────────────────────────────────────────────
+Usuario "0..*" --> "1" Rol : tiene
+Venta "0..*" --> "1" Usuario : realiza
+Venta "1" *-- "1..*" DetalleVenta : incluye
+DetalleVenta "0..*" --> "1" Producto : contiene
+Producto "0..*" --> "1" Categoria : pertenece a
+
+note bottom of DetalleVenta
+  El subtotal se calcula
+  multiplicando cantidad
+  por precio unitario.
+end note
+
+@enduml

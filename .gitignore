@@ -1,0 +1,20 @@
+# Visual Studio / .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+TestResults/
+packages/
+*.nupkg
+*.log
+
+# Rider
+.idea/
+
+# OS
+Thumbs.db
+desktop.ini
+**/Thumbs.db

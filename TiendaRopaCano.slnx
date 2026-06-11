@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="TiendaRopaCano.Application/TiendaRopaCano.Application.csproj" />
+  <Project Path="TiendaRopaCano.Data/TiendaRopaCano.Data.csproj" />
+  <Project Path="TiendaRopaCano.Domain/TiendaRopaCano.Domain.csproj" />
+  <Project Path="TiendaRopaCano.Presentation/TiendaRopaCano.Presentation.csproj" />
+</Solution>
