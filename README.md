@@ -43,14 +43,34 @@ cd TiendaRopaCano-POS
 > **Primer Inicio (Base de datos limpia):**
 > Al iniciar la aplicación por primera vez, al no detectar usuarios ni datos cargados, se abrirá automáticamente el formulario de **Registro**. El primer usuario creado tendrá asignado obligatoriamente el rol de **Administrador**. Una vez registrado, podrás acceder a todas las funciones y comenzar a crear categorías, productos y realizar ventas.
 
----
-
 ## 🛠️ Alternativa por consola (CLI de .NET)
 Si prefieres no usar la interfaz de Visual Studio para compilar, puedes ejecutar el sistema desde tu terminal de comandos estando en la carpeta raíz del proyecto:
 ```bash
 dotnet run --project TiendaRopaCano.Presentation/TiendaRopaCano.Presentation.csproj
 ```
 
-*Requisitos: Tener instalado el [SDK de .NET 10.0](https://dotnet.microsoft.com/download/dotnet/10.0) para Windows.*
+---
+
+## ⚙️ Guía de Instalación de .NET 10.0 SDK
+
+Para poder compilar y ejecutar este proyecto sin inconvenientes, necesitas tener instalado el SDK de .NET 10. Sigue estos sencillos pasos:
+
+1. **Descargar el Instalador:**
+   * Entra al sitio oficial de descargas de Microsoft: [Descargar .NET 10.0](https://dotnet.microsoft.com/download/dotnet/10.0).
+   * En la tabla de **SDK**, busca la fila de **Windows** y descarga el instalador **Installer (x64)**.
+2. **Ejecutar la Instalación:**
+   * Abre el archivo ejecutable recién descargado (ej: `dotnet-sdk-10.0.x-win-x64.exe`).
+   * Sigue los pasos en pantalla del asistente de Microsoft (haz clic en *Instalar* y luego en *Cerrar* cuando termine).
+3. **Verificar la Instalación:**
+   * Abre una nueva terminal de comandos (CMD o PowerShell) y escribe:
+     ```bash
+     dotnet --version
+     ```
+   * Te debe devolver una versión que inicie con `10.0.x` (por ejemplo, `10.0.100`).
+
+> [!IMPORTANT]
+> **Compatibilidad con Visual Studio:**
+> Para usar .NET 10, es necesario contar con **Visual Studio 2022 (versión 17.12 o superior)**. Si al abrir el proyecto en Visual Studio te salen errores de compatibilidad, abre el programa **Visual Studio Installer** en tu equipo y haz clic en **Actualizar** para poner al día tu entorno de desarrollo.
+
 
 
