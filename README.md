@@ -19,71 +19,38 @@ Sistema integral de escritorio para la gestión comercial y administración de i
 
 ---
 
-# 📦 Manual de Instalación y Clonación
+# 📦 Guía Rápida de Instalación y Uso
 
-## 💾 Clonar el Repositorio con Git
+Sigue estos 3 simples pasos para clonar, compilar y ejecutar el sistema en tu entorno local:
 
-Sigue estos pasos para clonar el repositorio de forma segura utilizando Git desde tu terminal (PowerShell, Git Bash o Símbolo del Sistema):
-
-1. **Abrir la terminal** en la carpeta donde deseas guardar el proyecto.
-2. **Ejecutar el comando de clonación**:
-   ```powershell
-   git clone https://github.com/luisFranco-19/TiendaRopaCano-POS.git
-   ```
-3. **Acceder a la carpeta del proyecto**:
-   ```powershell
-   cd TiendaRopaCano-POS
-   ```
-
----
-
-## 🛠️ Restaurar Paquetes y Compilar
-
-Una vez dentro de la carpeta del proyecto, ejecuta los siguientes comandos para restaurar las dependencias e iniciar la compilación:
-
-```powershell
-# Restaurar dependencias de NuGet del archivo de solución
-dotnet restore TiendaRopaCano.slnx
-
-# Compilar el proyecto en modo Debug
-dotnet build TiendaRopaCano.slnx -c Debug
+### 1. Clonar el repositorio
+Abre una terminal (PowerShell, CMD o Git Bash) y ejecuta:
+```bash
+git clone https://github.com/luisFranco-19/TiendaRopaCano-POS.git
+cd TiendaRopaCano-POS
 ```
 
+### 2. Abrir en Visual Studio
+* Haz doble clic en el archivo **`TiendaRopaCano.slnx`** para abrir la solución en Visual Studio (se recomienda Visual Studio 2022 o superior con soporte para .NET 10).
+
+### 3. Ejecutar el proyecto (F5)
+* Haz clic derecho sobre el proyecto **`TiendaRopaCano.Presentation`** en el Explorador de soluciones y selecciona **Establecer como proyecto de inicio**.
+* Presiona **F5** (o haz clic en el botón de **Iniciar**). Visual Studio se encargará de restaurar todas las dependencias NuGet y compilar el proyecto automáticamente.
+
 ---
 
-## 🚀 Ejecutar la Aplicación
+> [!TIP]
+> **Primer Inicio (Base de datos limpia):**
+> Al iniciar la aplicación por primera vez, al no detectar usuarios ni datos cargados, se abrirá automáticamente el formulario de **Registro**. El primer usuario creado tendrá asignado obligatoriamente el rol de **Administrador**. Una vez registrado, podrás acceder a todas las funciones y comenzar a crear categorías, productos y realizar ventas.
 
-Puedes iniciar la aplicación de dos maneras:
+---
 
-### Opción A: Usando Visual Studio (Recomendado)
-1. Abre el archivo de solución `TiendaRopaCano.slnx` en Visual Studio.
-2. En el Explorador de soluciones, haz clic derecho sobre el proyecto `TiendaRopaCano.Presentation` y selecciona **Establecer como proyecto de inicio** (Set as Startup Project).
-3. Presiona **F5** o haz clic en el botón de **Iniciar** para ejecutar la aplicación con depuración.
-
-### Opción B: Usando la CLI de .NET
-Si estás en la consola de comandos, ejecuta:
-```powershell
-dotnet run --project TiendaRopaCano.Presentation\TiendaRopaCano.Presentation.csproj
+## 🛠️ Alternativa por consola (CLI de .NET)
+Si prefieres no usar la interfaz de Visual Studio para compilar, puedes ejecutar el sistema desde tu terminal de comandos estando en la carpeta raíz del proyecto:
+```bash
+dotnet run --project TiendaRopaCano.Presentation/TiendaRopaCano.Presentation.csproj
 ```
 
-> [!NOTE]
-> La interfaz gráfica está basada en WPF (Windows Presentation Foundation), por lo que requiere un entorno de ejecución Windows compatible.
+*Requisitos: Tener instalado el [SDK de .NET 10.0](https://dotnet.microsoft.com/download/dotnet/10.0) para Windows.*
 
----
-
-## 📝 Notas Adicionales
-
-- **Versión de .NET**: El proyecto tiene como objetivo `net10.0-windows`. Asegúrate de tener instalado el SDK de .NET 10.0 o superior para evitar errores de compilación.
-- **Base de Datos**: Se incluye una base de datos local SQLite preconfigurada para las pruebas de desarrollo.
-- **Servicios de PDF**: Si la aplicación genera reportes en PDF, revisa las configuraciones de ruta y permisos en las clases de servicio.
-
----
-
-## 🤝 Soporte y Contribuciones
-
-Si tienes problemas con las credenciales de Git o requieres realizar un *push* al repositorio remoto, asegúrate de configurar tu identidad y credenciales en tu entorno local:
-```powershell
-git config --global user.name "Tu Nombre"
-git config --global user.email "tu-correo@example.com"
-```
 
