@@ -63,11 +63,10 @@ namespace TiendaRopaCano.Presentation.ViewModels
         [ObservableProperty]
         private bool _mostrarContrasena;
 
-        // Opciones de rol para el ComboBox
+        // Opciones de rol para el ComboBox (Solo Administrador para el primer registro)
         public List<KeyValuePair<int, string>> Roles { get; } = new()
         {
-            new KeyValuePair<int, string>(1, "Administrador"),
-            new KeyValuePair<int, string>(2, "Vendedor")
+            new KeyValuePair<int, string>(1, "Administrador")
         };
 
         [RelayCommand]
