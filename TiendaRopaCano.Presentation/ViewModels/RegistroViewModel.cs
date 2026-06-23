@@ -131,7 +131,8 @@ namespace TiendaRopaCano.Presentation.ViewModels
                     }
                 };
 
-            await _usuarioService.InsertarAsync(nuevoUsuario);
+                var nuevoId = await _usuarioService.InsertarAsync(nuevoUsuario);
+                nuevoUsuario.UsuarioId = nuevoId;
 
                 // Establecer la sesión del usuario recién creado
                 GestorSesion.UsuarioActual = nuevoUsuario;

@@ -134,39 +134,9 @@ CREATE TABLE IF NOT EXISTS LogErrores (
 );
 
 -- ============================================================
--- DATOS SEMILLA ADICIONALES: Categorías de prueba
+-- DATOS SEMILLA ADICIONALES: (Eliminados para desarrollo/producción limpia)
 -- ============================================================
-INSERT OR IGNORE INTO Categorias (CategoriaId, Nombre, Descripcion) VALUES (1, 'Camisetas y Tops', 'Camisetas, tops, blusas y playeras para uso diario');
-INSERT OR IGNORE INTO Categorias (CategoriaId, Nombre, Descripcion) VALUES (2, 'Pantalones y Jeans', 'Pantalones casuales, formales, jeans y shorts');
-INSERT OR IGNORE INTO Categorias (CategoriaId, Nombre, Descripcion) VALUES (3, 'Vestidos y Faldas', 'Vestidos de fiesta, casuales y faldas de todo tipo');
-INSERT OR IGNORE INTO Categorias (CategoriaId, Nombre, Descripcion) VALUES (4, 'Abrigos y Chaquetas', 'Chaquetas, suéteres, abrigos y ropa de invierno');
-INSERT OR IGNORE INTO Categorias (CategoriaId, Nombre, Descripcion) VALUES (5, 'Accesorios', 'Cinturones, gorras, bufandas y complementos de moda');
 
--- ============================================================
--- DATOS SEMILLA ADICIONALES: Productos de prueba
--- ============================================================
-INSERT OR IGNORE INTO Productos (ProductoId, CategoriaId, Nombre, Descripcion, Precio, PrecioCompra, Stock, StockMinimo, Activo) 
-VALUES (1, 1, 'Camiseta Básica Algodón', 'Camiseta de algodón 100% color blanco unisex', 150.00, 75.00, 50, 10, 1);
 
-INSERT OR IGNORE INTO Productos (ProductoId, CategoriaId, Nombre, Descripcion, Precio, PrecioCompra, Stock, StockMinimo, Activo) 
-VALUES (2, 1, 'Blusa de Seda Casual', 'Blusa elegante de seda para dama, variedad de colores', 350.00, 180.00, 25, 5, 1);
-
-INSERT OR IGNORE INTO Productos (ProductoId, CategoriaId, Nombre, Descripcion, Precio, PrecioCompra, Stock, StockMinimo, Activo) 
-VALUES (3, 2, 'Jeans Slim Fit Azul', 'Jeans de mezclilla ajustados para caballero', 450.00, 220.00, 30, 8, 1);
-
-INSERT OR IGNORE INTO Productos (ProductoId, CategoriaId, Nombre, Descripcion, Precio, PrecioCompra, Stock, StockMinimo, Activo) 
-VALUES (4, 2, 'Pantalón Chino Beige', 'Pantalón clásico casual de gabardina caballero', 400.00, 200.00, 20, 5, 1);
-
-INSERT OR IGNORE INTO Productos (ProductoId, CategoriaId, Nombre, Descripcion, Precio, PrecioCompra, Stock, StockMinimo, Activo) 
-VALUES (5, 3, 'Vestido Corto de Verano', 'Vestido ligero con estampado floral para dama', 600.00, 300.00, 15, 3, 1);
-
-INSERT OR IGNORE INTO Productos (ProductoId, CategoriaId, Nombre, Descripcion, Precio, PrecioCompra, Stock, StockMinimo, Activo) 
-VALUES (6, 4, 'Chaqueta de Mezclilla', 'Chaqueta clásica de mezclilla con botones metálicos', 750.00, 380.00, 12, 4, 1);
-
-INSERT OR IGNORE INTO Productos (ProductoId, CategoriaId, Nombre, Descripcion, Precio, PrecioCompra, Stock, StockMinimo, Activo) 
-VALUES (7, 4, 'Suéter de Lana Gris', 'Suéter abrigador de cuello redondo', 500.00, 250.00, 18, 5, 1);
-
-INSERT OR IGNORE INTO Productos (ProductoId, CategoriaId, Nombre, Descripcion, Precio, PrecioCompra, Stock, StockMinimo, Activo) 
-VALUES (8, 5, 'Cinturón de Cuero Negro', 'Cinturón de cuero genuino ajustable', 180.00, 90.00, 40, 10, 1);
 
 
